@@ -31,9 +31,9 @@ public strictfp class Archon extends Globals
 	                rc.broadcast(0,(int)myLocation.x);
 	                rc.broadcast(1,(int)myLocation.y);
 					 */
-	                
 	                Clock.yield();
-            	} 
+            	//test
+            } 
             catch (Exception e) 
             	{
 	                System.out.println("Archon Exception");
