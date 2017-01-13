@@ -9,6 +9,9 @@ public strictfp class Archon extends Globals
         while (true) 
         {
             try {
+            	
+            		//poep
+            	
             		//Gets the number of current gardeners and resets it so the gardeners can update
             		int prevNumGard = Message.getNumberOfType("GARDENER");
             		rc.broadcast(Message.GARDENER_CHANNEL, 0);
