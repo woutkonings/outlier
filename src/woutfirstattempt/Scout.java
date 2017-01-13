@@ -11,7 +11,10 @@ public class Scout extends Globals
 		{
 			try
 			{
-				
+				update();
+				//Updates the number of scouts.
+        		int prev = Message.getNumberOfType("SCOUT");
+        		rc.broadcast(Message.SCOUT_CHANNEL, prev+1);
 			}
 			catch(Exception e)
 			{

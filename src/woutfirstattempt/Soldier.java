@@ -15,6 +15,11 @@ public class Soldier extends Globals
             // Try/catch blocks stop unhandled exceptions, which cause your robot to explode
             try 
             {
+            	update();
+            	//Updates the number of soldiers.
+        		int prev = Message.getNumberOfType("SOLDIER");
+        		rc.broadcast(Message.SOLDIER_CHANNEL, prev+1);
+        		
                 MapLocation myLocation = rc.getLocation();
 
                 // See if there are any nearby enemy robots

@@ -11,6 +11,7 @@ public class Globals
 	public static RobotType myType;
 	public static Direction myDir;
 	public static MapLocation InitialLoc;
+	public static int numSoldiers, numLumberjacks, numScouts, numTanks;
 	
 	public static void initialise(RobotController theRC) 
 	{

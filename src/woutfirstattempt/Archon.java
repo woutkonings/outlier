@@ -11,36 +11,17 @@ public strictfp class Archon extends Globals
             try {
             		update();
             		myDir = here.directionTo(InitialLoc);
+            		Navigation.flee();
             		
-            		//Following lines check for enemies and get the direction to first enemy in the array.
-            		RobotInfo[] enemies = rc.senseNearbyRobots(5, them);
-            		int arrayPos = 0;
-            		boolean isEnemy = false;
-            		for(int i = 0; i < enemies.length; i++)
-            		{
-            			if(!enemies[i].equals(null))
-            			{
-            				isEnemy = true;
-            				arrayPos = i;
-            				break;
-            			}
-            		}
-            		if(isEnemy)
-            		{
-            			myDir = here.directionTo(enemies[arrayPos].getLocation()).opposite();
-            		}
-            		
-            		
-            	
-            		//Gets the number of current gardeners and resets it so the gardeners can update
+            	    //Gets the number of current gardeners and resets it so the gardeners can update
             		int prevNumGard = Message.getNumberOfType("GARDENER");
-            		rc.broadcast(Message.GARDENER_CHANNEL, 0);
+            		System.out.println(prevNumGard);
 	               
             		// Generate a random direction for hiring purposes.
 	                Direction dir = Navigation.randomDirection();
 	                
 	                //Hires a gardener if the number of gardeners is less than twice the number of archons.
-	                if (rc.canHireGardener(dir) && prevNumGard < GameConstants.NUMBER_OF_ARCHONS_MAX*2) 
+	                if (rc.canHireGardener(dir) && (prevNumGard < 10)) 
 	                {
 	                    rc.hireGardener(dir);
 	                }
@@ -49,6 +30,8 @@ public strictfp class Archon extends Globals
 	                Navigation.tryMove(myDir);
 	
 	                /** Broadcast archon's location for other robots on the team to know
+	                 * DIT MOET NOG EVEN GEFIKST WORDEN OP EEN ANDER CHANNEL WANT CHANNEL 0 en 1 ZIJN NU
+	                 * AL VOOR ANDERE DINGEN IN GEBRUIK. ZIE MESSAGE.
 	                MapLocation myLocation = rc.getLocation();
 	                rc.broadcast(0,(int)myLocation.x);
 	                rc.broadcast(1,(int)myLocation.y);

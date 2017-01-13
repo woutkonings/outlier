@@ -13,19 +13,28 @@ public class Gardener extends Globals
             // Try/catch blocks stop unhandled exceptions, which cause your robot to explode
             try {
 
-	                /** Listen for home archon's location
+	                /** Listen for home archon's location.
+	                 * MOET DUS NOG GEFIKST WORDEN.
 	                int xPos = rc.readBroadcast(0);
 	                int yPos = rc.readBroadcast(1);
 	                MapLocation archonLoc = new MapLocation(xPos,yPos);
 	                */
-            		
+            	
+            		update();
             		//Updates the number of gardeners.
             		int prev = Message.getNumberOfType("GARDENER");
             		rc.broadcast(Message.GARDENER_CHANNEL, prev+1);
 	
-	                // Generate a random direction
-	                Direction dir = Navigation.randomDirection();
+            		if(Navigation.isWoundedTreeDir())
+            		{
+            			Navigation.tryMove(myDir);
+            		}
+	                if(!rc.hasMoved())
+	                {
+	                	Navigation.wander();
+	                }
 	
+	                Direction dir = Navigation.randomDirection();
 	                // Randomly attempt to build a soldier or lumberjack in this direction
 	                if (rc.canBuildRobot(RobotType.SOLDIER, dir) && Math.random() < .01) 
 	                {
@@ -35,9 +44,6 @@ public class Gardener extends Globals
 	                {
 	                    rc.buildRobot(RobotType.LUMBERJACK, dir);
 	                }
-
-	                // Move randomly
-	                Navigation.tryMove(Navigation.randomDirection());
 	
 	                // Clock.yield() makes the robot wait until the next turn, then it will perform this loop again
 	                Clock.yield();

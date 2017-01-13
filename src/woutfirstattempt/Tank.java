@@ -12,7 +12,10 @@ public class Tank extends Globals
 		{
 			try
 			{
-				
+				update();
+				//Updates the number of tanks.
+        		int prev = Message.getNumberOfType("TANK");
+        		rc.broadcast(Message.TANK_CHANNEL, prev+1);
 			}
 			catch(Exception e)
 			{
