@@ -9,6 +9,8 @@ public class Globals
 	public static Team them;
 	public static int myID;
 	public static RobotType myType;
+	public static Direction myDir;
+	public static MapLocation InitialLoc;
 	
 	public static void initialise(RobotController theRC) 
 	{
@@ -17,6 +19,8 @@ public class Globals
 		them = us.opponent();
 		myID = rc.getID();
 		myType = rc.getType();
+		myDir = Navigation.randomDirection();
+		InitialLoc = rc.getLocation();
 	}
 	
 	public static void update() 

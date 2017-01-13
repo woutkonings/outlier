@@ -9,12 +9,14 @@ public strictfp class Archon extends Globals
         while (true) 
         {
             try {
-            		
+            		update();
+            		myDir = here.directionTo(InitialLoc);
+            	
             		//Gets the number of current gardeners and resets it so the gardeners can update
             		int prevNumGard = Message.getNumberOfType("GARDENER");
             		rc.broadcast(Message.GARDENER_CHANNEL, 0);
 	               
-            		// Generate a random direction
+            		// Generate a random direction for hiring purposes.
 	                Direction dir = Navigation.randomDirection();
 	                
 	                //Hires a gardener if the number of gardeners is less than twice the number of archons.
@@ -23,17 +25,17 @@ public strictfp class Archon extends Globals
 	                    rc.hireGardener(dir);
 	                }
 	
-	                // Move randomly
-	                Navigation.tryMove(Navigation.randomDirection());
+	                // Move to myDir
+	                Navigation.tryMove(myDir);
 	
 	                /** Broadcast archon's location for other robots on the team to know
 	                MapLocation myLocation = rc.getLocation();
 	                rc.broadcast(0,(int)myLocation.x);
 	                rc.broadcast(1,(int)myLocation.y);
 					 */
+	                
 	                Clock.yield();
-            	//test
-            } 
+            	} 
             catch (Exception e) 
             	{
 	                System.out.println("Archon Exception");
