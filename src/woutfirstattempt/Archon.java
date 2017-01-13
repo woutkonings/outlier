@@ -11,6 +11,26 @@ public strictfp class Archon extends Globals
             try {
             		update();
             		myDir = here.directionTo(InitialLoc);
+            		
+            		//Following lines check for enemies and get the direction to first enemy in the array.
+            		RobotInfo[] enemies = rc.senseNearbyRobots(5, them);
+            		int arrayPos = 0;
+            		boolean isEnemy = false;
+            		for(int i = 0; i < enemies.length; i++)
+            		{
+            			if(!enemies[i].equals(null))
+            			{
+            				isEnemy = true;
+            				arrayPos = i;
+            				break;
+            			}
+            		}
+            		if(isEnemy)
+            		{
+            			myDir = here.directionTo(enemies[arrayPos].getLocation()).opposite();
+            		}
+            		
+            		
             	
             		//Gets the number of current gardeners and resets it so the gardeners can update
             		int prevNumGard = Message.getNumberOfType("GARDENER");
