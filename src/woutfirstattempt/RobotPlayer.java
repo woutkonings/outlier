@@ -12,7 +12,8 @@ public strictfp class RobotPlayer extends Globals
     @SuppressWarnings("unused")
     public static void run(RobotController rc) throws GameActionException 
     {
-
+    	initialise(rc);
+    	
         // This is the RobotController object. You use it to perform actions from this robot,
         // and to get information on its current status.
         RobotPlayer.rc = rc;
