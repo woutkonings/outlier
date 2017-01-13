@@ -58,6 +58,10 @@ public class Navigation extends Globals
         return false;
     }
     
+    /**
+     * Runs opposite direction of nearby enemy.
+     * @return
+     */
     public static boolean flee()
     {
     	//Following lines check for enemies and get the direction to first enemy in the array.
@@ -87,7 +91,6 @@ public class Navigation extends Globals
 	 */
 	public static boolean isEnemyDir()
 	{
-		// No close robots, so search for robots within sight radius
         RobotInfo[] robots = rc.senseNearbyRobots(-1,them);
 
         // If there is a robot, move towards it
@@ -98,6 +101,23 @@ public class Navigation extends Globals
             return true;
         }
         return false;
+	}
+	
+	/**
+	 * Senses for enemies around and sets target direction to safe ranged location.
+	 * @return
+	 */
+	public static boolean isEnemyRangedDir()
+	{
+		RobotInfo[] robots = rc.senseNearbyRobots(-1,them);
+		if(robots.length > 0) 
+        {
+            MapLocation enemyLocation = robots[0].getLocation();
+            MapLocation rangeLocation = enemyLocation.add(here.directionTo(enemyLocation).opposite(),7);
+            myDir = here.directionTo(rangeLocation);
+            return true;
+        }
+		return false;
 	}
 	
 	/**

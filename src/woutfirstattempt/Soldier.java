@@ -19,25 +19,18 @@ public class Soldier extends Globals
             	//Updates the number of soldiers.
         		int prev = Message.getNumberOfType("SOLDIER");
         		rc.broadcast(Message.SOLDIER_CHANNEL, prev+1);
+        	
+        		shoot();
         		
-                MapLocation myLocation = rc.getLocation();
-
-                // See if there are any nearby enemy robots
-                RobotInfo[] robots = rc.senseNearbyRobots(-1, enemy);
-
-                // If there are some...
-                if (robots.length > 0) 
-                {
-                    // And we have enough bullets, and haven't attacked yet this turn...
-                    if (rc.canFireSingleShot()) 
-                    {
-                        // ...Then fire a bullet in the direction of the enemy.
-                        rc.fireSingleShot(rc.getLocation().directionTo(robots[0].location));
-                    }
-                }
-
-                // Move randomly
-                Navigation.tryMove(Navigation.randomDirection());
+        		//The following lines make the soldier go to an enemy if it is not a lumberjack. If it's a lumberjack, it flees.
+        		if(Navigation.isEnemyRangedDir())
+        		{
+        			Navigation.tryMove(myDir);
+        		}
+        		if(!rc.hasMoved())
+        		{
+        			Navigation.wander();
+        		}
 
                 // Clock.yield() makes the robot wait until the next turn, then it will perform this loop again
                 Clock.yield();
@@ -49,5 +42,29 @@ public class Soldier extends Globals
                 e.printStackTrace();
             }
         }
+	}
+	
+	/**
+	 * Shoots at nearby enemy.
+	 */
+	public static void shoot()
+	{
+		try
+		{
+		RobotInfo[] robots = rc.senseNearbyRobots(-1, them);
+		if (robots.length > 0) 
+        {
+            // And we have enough bullets, and haven't attacked yet this turn...
+            if (rc.canFireSingleShot()) 
+            {
+                // ...Then fire a bullet in the direction of the enemy.
+                rc.fireSingleShot(here.directionTo(robots[0].location));
+            }
+        }
+		}
+		catch(GameActionException e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

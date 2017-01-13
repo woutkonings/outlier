@@ -25,7 +25,11 @@ public class Gardener extends Globals
             		int prev = Message.getNumberOfType("GARDENER");
             		rc.broadcast(Message.GARDENER_CHANNEL, prev+1);
 	
-            		if(Navigation.isWoundedTreeDir())
+            		if(Navigation.flee())
+            		{
+            			Navigation.tryMove(myDir);
+            		}
+            		if(Navigation.isWoundedTreeDir() && !rc.hasMoved())
             		{
             			Navigation.tryMove(myDir);
             		}
@@ -34,20 +38,9 @@ public class Gardener extends Globals
 	                	Navigation.wander();
 	                }
 	
-	                Direction dir = Navigation.randomDirection();
-	                // Randomly attempt to build a soldier or lumberjack in this direction
-	                if (rc.canBuildRobot(RobotType.SOLDIER, dir) && Math.random() < .01) 
-	                {
-	                    rc.buildRobot(RobotType.SOLDIER, dir);
-	                } 
-	                else if (rc.canBuildRobot(RobotType.LUMBERJACK, dir) && Math.random() < .01 && rc.isBuildReady()) 
-	                {
-	                    rc.buildRobot(RobotType.LUMBERJACK, dir);
-	                }
+	                randomBuild();
 	
-	                // Clock.yield() makes the robot wait until the next turn, then it will perform this loop again
 	                Clock.yield();
-
             } 
             catch (Exception e) 
             {
@@ -55,5 +48,30 @@ public class Gardener extends Globals
                 e.printStackTrace();
             }
         }
+	}
+	
+		
+	/**
+	 * randomly builds a soldier or a gardener.
+	 */
+	public static void randomBuild()
+	{
+		try
+		{
+			Direction dir = Navigation.randomDirection();
+	        // Randomly attempt to build a soldier or lumberjack in this direction
+	        if (rc.canBuildRobot(RobotType.SOLDIER, dir) && Math.random() < .01) 
+	        {
+	            rc.buildRobot(RobotType.SOLDIER, dir);
+	        } 
+	        else if (rc.canBuildRobot(RobotType.LUMBERJACK, dir) && Math.random() < .01 && rc.isBuildReady()) 
+	        {
+	            rc.buildRobot(RobotType.LUMBERJACK, dir);
+	        }
+		}
+		catch(GameActionException e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

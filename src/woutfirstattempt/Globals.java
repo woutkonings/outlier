@@ -12,6 +12,7 @@ public class Globals
 	public static Direction myDir;
 	public static MapLocation InitialLoc;
 	public static int numSoldiers, numLumberjacks, numScouts, numTanks;
+	public static int GARDENER_MAX = 4;
 	
 	public static void initialise(RobotController theRC) 
 	{

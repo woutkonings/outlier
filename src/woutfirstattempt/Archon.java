@@ -21,7 +21,7 @@ public strictfp class Archon extends Globals
 	                Direction dir = Navigation.randomDirection();
 	                
 	                //Hires a gardener if the number of gardeners is less than twice the number of archons.
-	                if (rc.canHireGardener(dir) && (prevNumGard < 10)) 
+	                if (rc.canHireGardener(dir) && (prevNumGard < GARDENER_MAX)) 
 	                {
 	                    rc.hireGardener(dir);
 	                }
