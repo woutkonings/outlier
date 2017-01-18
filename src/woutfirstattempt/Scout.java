@@ -36,7 +36,6 @@ public class Scout extends Globals
 	{
 		try
 		{
-		
 			Direction dir = new Direction(0);
 			if (!Navigation.tryMove(dir, o, 2)){
 				offset = (float) Math.random() * 360;
