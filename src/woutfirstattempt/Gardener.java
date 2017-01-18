@@ -60,13 +60,17 @@ public class Gardener extends Globals
 		{
 			Direction dir = Navigation.randomDirection();
 	        // Randomly attempt to build a soldier or lumberjack in this direction
-	        if (rc.canBuildRobot(RobotType.SOLDIER, dir) && Math.random() < .01) 
+	        if (rc.canBuildRobot(RobotType.SOLDIER, dir) && Math.random() < .01 && rc.isBuildReady()) 
 	        {
 	            rc.buildRobot(RobotType.SOLDIER, dir);
 	        } 
 	        else if (rc.canBuildRobot(RobotType.LUMBERJACK, dir) && Math.random() < .01 && rc.isBuildReady()) 
 	        {
 	            rc.buildRobot(RobotType.LUMBERJACK, dir);
+	        }
+	        else if (rc.canPlantTree(dir) && Math.random() < .5 && rc.isBuildReady())
+	        {
+	        	rc.plantTree(dir);
 	        }
 		}
 		catch(GameActionException e)
