@@ -6,7 +6,7 @@ public class Gardener extends Globals
 	public static void loop()
 	{
 		System.out.println("I'm a gardener!");
-		int countdown = 10;
+		int countdown = 50;
 		float treeDir = 0;
 		int treesPlanted = 0;
 		MapLocation treeCenter = new MapLocation(0,0);
