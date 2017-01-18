@@ -55,7 +55,7 @@ public class Gardener extends Globals
 	                if (countdown == -1 && treesPlanted < 8){
 	                	//die shit van planten in cirkel
 	                	rc.plantTree(here.directionTo(treeCenter.add(treeDir, 2)));
-	                	treeDir += .25;
+	                	treeDir += .25 * Math.PI;
 	                	treesPlanted++;
 	                }
 	                
