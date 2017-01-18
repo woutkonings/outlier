@@ -6,7 +6,10 @@ public class Gardener extends Globals
 	public static void loop()
 	{
 		System.out.println("I'm a gardener!");
-
+		int countdown = 10;
+		float treeDir = 0;
+		int treesPlanted = 0;
+		MapLocation treeCenter = new MapLocation(0,0);
         // The code you want your robot to perform every round should be in this loop
         while (true) {
 
@@ -33,13 +36,34 @@ public class Gardener extends Globals
             		{
             			Navigation.tryMove(myDir);
             		}
-	                if(!rc.hasMoved())
+	                if(!rc.hasMoved() && countdown > 0)
 	                {
 	                	Navigation.wander();
 	                }
-	
+	                
+	                // Wander for a while and then start the planting
+	                
+	                //set the center of the tree circle
+	                if (countdown == 0){
+	                	treeCenter = here;
+	                	countdown = -1;
+	                }
+	                else if (countdown > 0){
+	                	countdown--;
+	                }
+	                //plant the 8 trees
+	                if (countdown == -1 && treesPlanted < 8){
+	                	//die shit van planten in cirkel
+	                	rc.plantTree(here.directionTo(treeCenter.add(treeDir, 2)));
+	                	treeDir += .25;
+	                	treesPlanted++;
+	                }
+	                
+	                //ENTER SPAWN LOCATION HERE
 	                randomBuild();
-	
+	                //ONLY BUILD UNITS THERE
+	                
+	                
 	                Clock.yield();
             } 
             catch (Exception e) 
@@ -64,7 +88,7 @@ public class Gardener extends Globals
 	        {
 	            rc.buildRobot(RobotType.SOLDIER, dir);
 	        } 
-	        else if (rc.canBuildRobot(RobotType.LUMBERJACK, dir) && Math.random() < .01 && rc.isBuildReady()) 
+	        else if (rc.canBuildRobot(RobotType.LUMBERJACK, dir) && Math.random() < .10 && rc.isBuildReady()) 
 	        {
 	            rc.buildRobot(RobotType.LUMBERJACK, dir);
 	        }
