@@ -72,6 +72,10 @@ public class Gardener extends Globals
 	        {
 	        	rc.plantTree(dir);
 	        }
+	        else if (rc.canBuildRobot(RobotType.SCOUT, myDir) && Math.random() < .5 && rc.isBuildReady())
+	        {
+	        	rc.buildRobot(RobotType.SCOUT, myDir);
+	        }
 		}
 		catch(GameActionException e)
 		{

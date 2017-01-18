@@ -15,6 +15,7 @@ public strictfp class Archon extends Globals
             		
             	    //Gets the number of current gardeners and resets it so the gardeners can update
             		int prevNumGard = Message.getNumberOfType("GARDENER");
+            		rc.broadcast(Message.GARDENER_CHANNEL, 0);
             		System.out.println(prevNumGard);
 	               
             		// Generate a random direction for hiring purposes.
